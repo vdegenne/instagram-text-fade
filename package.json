@@ -16,7 +16,7 @@
     "@tailwindcss/postcss": "^4.1.16",
     "@vdegenne/about-dialog": "^0.4.2",
     "@vdegenne/debouncer": "^1.0.9",
-    "@vdegenne/forms": "^0.1.52",
+    "@vdegenne/forms": "^0.1.53",
     "@vdegenne/material-color-helpers": "^1.11.7",
     "@vdegenne/mini-rest": "^0.3.2",
     "@vdegenne/rollup-plugin-minify-html": "^1.0.6",

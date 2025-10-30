@@ -13,6 +13,7 @@ import {PageElement} from './PageElement.js'
 import {breakDownText} from '../utils.js'
 import {textEditDialog} from '../dialogs.js'
 import {availableFonts} from '../constants.js'
+import {userCtrl} from '../firebase.js'
 
 declare global {
 	interface HTMLElementTagNameMap {
@@ -58,21 +59,30 @@ export class PageMain extends PageElement {
 					<pre id="text" class="fade">${parts[store.sentenceIndex]}</pre>
 				</div>
 				<div class="flex flex-col flex-1 p-6 gap-10">
-					<md-text-button @click=${textEditDialog}>Edit text</md-text-button>
+					<md-elevated-button @click=${textEditDialog}
+						>Edit text</md-elevated-button
+					>
 					${store.F.SELECT('', 'font', availableFonts)}
 					${store.F.SLIDER(html`<md-icon>format_size</md-icon>`, 'fontSizePx', {
 						min: 28,
 						max: 200,
+						style: {userSelect: 'none'},
 					})}
 					${store.F.SLIDER(
 						html`<md-icon>line_weight</md-icon>`,
 						'fontWeigthPx',
-						{min: 100, max: 900},
+						{min: 100, max: 900, style: {userSelect: 'none'}},
 					)}
 					${store.F.SLIDER(
 						html`<md-icon>hourglass_top</md-icon>`,
 						'fadeSpeedMs',
-						{min: 1, max: 1000},
+						{
+							min: 1,
+							max: 1000,
+							style: {
+								userSelect: 'none',
+							},
+						},
 					)}
 					<div class="flex items-center justify-between">
 						<md-elevated-button
