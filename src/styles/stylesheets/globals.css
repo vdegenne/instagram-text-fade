@@ -14,6 +14,7 @@
 	--fade-duration: 200ms;
 	--text-background-color: 'black';
 	--text-color: 'white';
+	--line-height: 12;
 }
 
 body {

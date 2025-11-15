@@ -4,6 +4,7 @@ import {cquerySelector} from 'html-vision'
 import {saveToLocalStorage} from 'snar-save-to-local-storage'
 import {availableFonts, availablePages} from './constants.js'
 import {breakDownText} from './utils.js'
+import toast from 'toastit'
 
 @saveToLocalStorage('instagram-text-fade:store')
 export class AppStore extends ReactiveController {
@@ -13,11 +14,16 @@ export class AppStore extends ReactiveController {
 	@state() text = 'test'
 	@state() fontSizePx = 48
 	@state() fontWeigthPx = 100
+	@state() lineHeightPx = 12
 	@state() sentenceIndex = 0
 	@state() font: (typeof availableFonts)[number] = 'Roboto'
 	@state() fadeSpeedMs = 200
+
+	@state() colors = false
 	@state() textBackgroundColor = '#000000'
 	@state() textColor = '#FFFFFF'
+
+	@state() fontImports = ''
 
 	parts: string[] | null = null
 
@@ -39,28 +45,46 @@ export class AppStore extends ReactiveController {
 				})
 				.catch(() => {})
 		}
-		if (changed.has('font')) {
-			document.documentElement.style.setProperty(
-				'--text-font-family',
-				this.font,
-			)
-		}
-		if (changed.has('fadeSpeedMs')) {
-			document.documentElement.style.setProperty(
-				'--fade-duration',
-				`${this.fadeSpeedMs}ms`,
-			)
-		}
-		if (changed.has('textBackgroundColor')) {
-			document.documentElement.style.setProperty(
-				'--text-background-color',
-				this.textBackgroundColor,
-			)
-		}
-		if (changed.has('textColor')) {
-			document.documentElement.style.setProperty('--text-color', this.textColor)
+
+		// if (changed.has('font')) {
+		document.documentElement.style.setProperty('--text-font-family', this.font)
+		// }
+
+		// if (changed.has('fadeSpeedMs')) {
+		document.documentElement.style.setProperty(
+			'--fade-duration',
+			`${this.fadeSpeedMs}ms`,
+		)
+		// }
+
+		// if (changed.has('textBackgroundColor')) {
+		document.documentElement.style.setProperty(
+			'--text-background-color',
+			this.colors ? this.textBackgroundColor : 'unset',
+		)
+		// }
+
+		// if (changed.has('textColor')) {
+		document.documentElement.style.setProperty(
+			'--text-color',
+			this.colors ? this.textColor : 'unset',
+		)
+		// }
+
+		// if (changed.has('lineHeightPx')) {
+		document.documentElement.style.setProperty(
+			'--line-height',
+			`${this.lineHeightPx}px`,
+		)
+		// }
+	}
+
+	protected firstUpdated(_changedProperties: PropertyValues): void {
+		if (this.fontImports) {
+			document.head.insertAdjacentHTML('beforeend', this.fontImports)
 		}
 	}
+
 	fadeAndChange(element: HTMLElement, changeIndex: () => void) {
 		element.classList.add('hide') // fade out
 		element.addEventListener('transitionend', function handler() {

@@ -29,7 +29,7 @@ export function renderColorPicker(
 ) {
 	return html`
 		<color-picker
-			.value=${ifDefined(value)}
+			.value=${ifDefined(value ?? themeStore.themeColor)}
 			@input=${(event: Event) => {
 				const target = event.target as ColorPicker
 				if (callback) {

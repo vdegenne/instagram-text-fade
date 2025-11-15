@@ -4,15 +4,14 @@ import {customElement} from 'custom-element-decorator'
 import {html, LitElement} from 'lit'
 import {withStyles} from 'lit-with-styles'
 import {query, state} from 'lit/decorators.js'
-import {FormBuilder} from '@vdegenne/forms/FormBuilder'
-import {store} from '../store.js'
-import {themeStore} from '../styles/themeStore.js'
-import {renderThemeElements} from '../styles/theme-elements.js'
-import styles from './settings-dialog.css?inline'
 import '../material/dialog-patch.js'
 import '../material/item-patch.js'
+import {store} from '../store.js'
+import {renderThemeElements} from '../styles/theme-elements.js'
+import {themeStore} from '../styles/themeStore.js'
+import styles from './settings-dialog.css?inline'
 
-let F = new FormBuilder(store)
+// let F = new FormBuilder(store)
 
 @customElement({name: 'settings-dialog', inject: true})
 @withStyles(styles)
@@ -28,7 +27,7 @@ export class SettingsDialog extends LitElement {
 			<md-dialog
 				?open=${this.open}
 				@closed=${() => (this.open = false)}
-				style="max-width:min(100vw - 18px, 400px);width:100%"
+				style="max-width:min(100vw - 18px, 1080px);width:100%;max-height:min(100vh - 12px, 650px);height:100%;"
 			>
 				<header slot="headline" class="select-none">
 					<md-icon>settings</md-icon>
@@ -38,9 +37,11 @@ export class SettingsDialog extends LitElement {
 				<form slot="content" method="dialog" id="form" class="">
 					<section>
 						<h3>Global</h3>
-						<md-list style="--forms-switch-padding:initial">
-							<!-- put the switches here -->
-						</md-list>
+						${store.F.TEXTAREA('Font imports', 'fontImports', {
+							rows: 7,
+							supportingText: 'Reload the page to apply',
+							style: {width: '100%'},
+						})}
 					</section>
 
 					<section>

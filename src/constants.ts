@@ -8,4 +8,5 @@ export const availableFonts = [
 	'Roboto',
 	'Noto Serif JP',
 	'Noto Sans JP',
+	'Noto Sans KR',
 ] as const

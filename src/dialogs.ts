@@ -9,18 +9,34 @@ export function textEditDialog() {
 		style: {
 			width: '600px',
 		},
-		content(dialog) {
+		content() {
 			return html`<!---->
-				<div class="flex">${store.F.TEXTAREA('', 'text', {rows: 12})}</div>
-				<div class="flex gap-3">
-					${renderColorPicker(store.textBackgroundColor, (value: string) => {
-						store.textBackgroundColor = value
-					})}
-					${renderColorPicker(store.textColor, (value: string) => {
-						store.textColor = value
-					})}
+				<div class="flex">${store.F.TEXTAREA('', 'text', {rows: 4})}</div>
+				<div class="m-4 flex items-center gap-4">
+					${store.F.SWITCH('Custom colors', 'colors', {})}
+					<div class="flex gap-3">
+						${renderColorPicker(store.textBackgroundColor, (value: string) => {
+							store.textBackgroundColor = value
+						})}
+						${renderColorPicker(store.textColor, (value: string) => {
+							store.textColor = value
+						})}
+					</div>
 				</div>
 				<!----> `
+		},
+	})
+}
+
+export function importFonts() {
+	materialDialog({
+		headline: 'Import fonts',
+		style: {
+			width: '600px',
+		},
+		content() {
+			return html`<!-- -->
+				<!-- -->`
 		},
 	})
 }
